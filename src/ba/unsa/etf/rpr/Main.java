@@ -1,12 +1,28 @@
 package ba.unsa.etf.rpr;
 
-public class Main { 
-    /*public static void main(String[] args) {
-      //  String url = "jdbc:sqlite:resources/baza.db";
+import java.util.Scanner;
 
+public class Main {
+    static String ispisiGradove(){
+        String s = "";
 
+        return s;
+    }
 
-        System.out.println("Gradovi su:\n" + ispisiGradove());
+    static void glavniGrad(){
+        System.out.println("Unesite naziv drzave: ");
+        String unos;
+        Scanner ulaz = new Scanner(System.in);
+        unos = ulaz.nextLine();
+
+        GeografijaDAO gd = new GeografijaDAO();
+
+        Grad g = gd.glavniGrad(unos);
+        if(g == null) System.out.println("Nepostojeća država");
+        else System.out.println("Glavni grad države " + unos + " je " + g.getNaziv());
+    }
+
+    public static void main(String[] args) {
         glavniGrad();
-    }*/
+    }
 }
