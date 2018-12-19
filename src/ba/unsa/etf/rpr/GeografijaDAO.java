@@ -18,8 +18,7 @@ public class GeografijaDAO {
 
     public GeografijaDAO() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Dalija\\IdeaProjects\\rpr-t9tut\\src\\baza.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:src/baza.db");
 
             String upit1 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
                     "VALUES (1, 'Pariz', 2200000, 6)";
@@ -43,9 +42,15 @@ public class GeografijaDAO {
             String upit8 = "insert into drzava(id, naziv, glavni_grad)" +
                     "values(8, 'Austrija', 3)";
 
+            String upitPocetni1 = "delete from drzava";
+            String upitPocetni2 = "delete from grad";
+
             Statement stmt = conn.createStatement();
 
             try {
+                stmt.execute(upitPocetni1);
+                stmt.execute(upitPocetni2);
+
                 stmt.executeUpdate(upit1);
                 stmt.executeUpdate(upit2);
                 stmt.executeUpdate(upit3);
@@ -58,32 +63,31 @@ public class GeografijaDAO {
 
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Grad glavniGrad(String drzava)  {
-        Grad g1 = null;
+    public Grad glavniGrad(String drzava) {
+        Grad g = null;
         try {
             Statement stmt = conn.createStatement();
             PreparedStatement statement = conn.prepareStatement("SELECT * from drzava where naziv =  ?");
             statement.setString(1, drzava);
             ResultSet result = statement.executeQuery();
-            if(result == null) return null;
+            if(!result.next()) return null;
 
-            int id1 = result.findColumn("glavni_grad");
-            ResultSet res2 = stmt.executeQuery("select * from main.grad where id = " + id1);
-            Grad g = new Grad(res2.getInt("id"), res2.getString("naziv"), res2.getInt("broj_stanovnika"), res2.getInt("drzava"));
+            int id1 = result.getInt(3);
+            PreparedStatement srmt2 = conn.prepareStatement("select * from main.grad where id = ?");
+            srmt2.setInt(1, id1);
+            ResultSet res2 =  srmt2.executeQuery();
+            g = new Grad(res2.getInt(1), res2.getString(2), res2.getInt(3), res2.getInt(4));
 
-            g1 = g;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return g1;
+        return g;
     }
 
     public void obrisiDrzavu(String drzava){
