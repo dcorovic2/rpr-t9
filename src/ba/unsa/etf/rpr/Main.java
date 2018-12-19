@@ -14,7 +14,7 @@ public class Main {
         for(Grad g: gradovi){
             for(Drzava d: drzave) {
                 if(g.getDrzava() == d.getId())
-                    System.out.println(g.getNaziv() + "(" + d.getNaziv() + ") - " + g.getBroj_stanovnika());
+                   s += g.getNaziv() + " (" + d.getNaziv() + ") - " + g.getBrojStanovnika() + "\n";
             }
         }
 
@@ -37,5 +37,6 @@ public class Main {
     public static void main(String[] args) {
         glavniGrad();
         ispisiGradove();
+        System.out.println(ispisiGradove());
     }
 }

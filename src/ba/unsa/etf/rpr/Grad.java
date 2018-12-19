@@ -3,7 +3,7 @@ package ba.unsa.etf.rpr;
 public class Grad implements Comparable{
     private int id;
     private String naziv;
-    private int broj_stanovnika;
+    private int BrojStanovnika;
     private int drzava;
 
     public Grad(){};
@@ -11,14 +11,14 @@ public class Grad implements Comparable{
     public Grad(int id, String naziv, int broj_stanovnika, int drzava) {
         this.id = id;
         this.naziv = naziv;
-        this.broj_stanovnika = broj_stanovnika;
+        this.BrojStanovnika = broj_stanovnika;
         this.drzava = drzava;
     }
 
     public int compareTo(Object o){
         Grad g = (Grad) o;
-        if(this.broj_stanovnika > g.getBroj_stanovnika()) return -1;
-        if(this.broj_stanovnika < g.getBroj_stanovnika()) return 1;
+        if(this.BrojStanovnika > g.getBrojStanovnika()) return -1;
+        if(this.BrojStanovnika < g.getBrojStanovnika()) return 1;
         return 0;
     }
 
@@ -38,12 +38,12 @@ public class Grad implements Comparable{
         this.naziv = naziv;
     }
 
-    public int getBroj_stanovnika() {
-        return broj_stanovnika;
+    public int getBrojStanovnika() {
+        return BrojStanovnika;
     }
 
-    public void setBroj_stanovnika(int broj_stanovnika) {
-        this.broj_stanovnika = broj_stanovnika;
+    public void setBrojStanovnika(int brojStanovnika) {
+        this.BrojStanovnika = brojStanovnika;
     }
 
     public int getDrzava() {

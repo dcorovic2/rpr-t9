@@ -1,5 +1,5 @@
 package ba.unsa.etf.rpr;
-/*
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeografijaDAOTest {
-
+/*
     @Test
     void regenerateFile() {
         GeografijaDAO.removeInstance();
@@ -19,7 +19,7 @@ class GeografijaDAOTest {
         ArrayList<Grad> gradovi = dao.gradovi();
         assertEquals("London", gradovi.get(0).getNaziv());
         assertEquals("Francuska", gradovi.get(1).getDrzava().getNaziv());
-    }
+    }*/
 
     @Test
     void glavniGrad() {
@@ -30,7 +30,7 @@ class GeografijaDAOTest {
         assertEquals("Beč", bech.getNaziv());
     }
 
-    @Test
+ /*   @Test
     void obrisiDrzavu() {
         GeografijaDAO dao = GeografijaDAO.getInstance();
         // Nepostojeća država, neće se desiti ništa
@@ -38,7 +38,7 @@ class GeografijaDAOTest {
         ArrayList<Grad> gradovi = dao.gradovi();
         assertEquals("Pariz", gradovi.get(1).getNaziv());
         assertEquals("Austrija", gradovi.get(2).getDrzava().getNaziv());
-    }
+    }*/
 
     @Test
     void obrisiDrzavu2() {
@@ -69,7 +69,7 @@ class GeografijaDAOTest {
         assertEquals("Marseille", gradovi.get(3).getNaziv());
     }
 
-    @Test
+  /*  @Test
     void dodajDrzavu() {
         Grad sarajevo = new Grad();
         sarajevo.setNaziv("Sarajevo");
@@ -89,7 +89,7 @@ class GeografijaDAOTest {
         assertEquals(500000, proba.getBrojStanovnika());
         assertEquals("Bosna i Hercegovina", proba.getDrzava().getNaziv());
     }
-
+*/
     @Test
     void izmijeniGrad() {
         GeografijaDAO dao = GeografijaDAO.getInstance();
@@ -99,5 +99,5 @@ class GeografijaDAOTest {
 
         ArrayList<Grad> gradovi = dao.gradovi();
         assertEquals("Vienna", gradovi.get(2).getNaziv());
-    }*/
-//}
+    }
+}

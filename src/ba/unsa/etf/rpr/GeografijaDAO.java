@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr;
 
 import org.sqlite.SQLiteException;
 
-import java.nio.file.attribute.AclEntryType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Set;
@@ -21,24 +20,24 @@ public class GeografijaDAO {
             conn = DriverManager.getConnection("jdbc:sqlite:src/baza.db");
 
             String upit1 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (1, 'Pariz', 2200000, 6)";
+                    "VALUES (1, 'Pariz', 2206488, 6)";
 
             String upit2 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (2, 'London', 8136000, 7)";
+                    "VALUES (2, 'London', 8825000, 7)";
 
             String upit3 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (3, 'Bec', 1868000, 8)";
+                    "VALUES (3, 'Beč', 1899055, 8)";
 
             String upit4 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (4, 'Manchester', 510746, 7)";
+                    "VALUES (4, 'Manchester', 545500, 7)";
 
             String upit5 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (5, 'Graz',  283869, 8)";
+                    "VALUES (5, 'Graz',  280200, 8)";
 
             String upit6 = "insert into drzava(id, naziv, glavni_grad) " +
                     "values (6, 'Francuska', 1)";
             String upit7 = "insert into drzava(id, naziv, glavni_grad)" +
-                    "values(7, 'United Kingdom', 2)";
+                    "values(7, 'Velika Britanija', 2)";
             String upit8 = "insert into drzava(id, naziv, glavni_grad)" +
                     "values(8, 'Austrija', 3)";
 
@@ -66,6 +65,9 @@ public class GeografijaDAO {
         }  catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void removeInstance() {
     }
 
     public Grad glavniGrad(String drzava) {
@@ -123,7 +125,7 @@ public class GeografijaDAO {
                 Grad g = new Grad();
                 g.setId(result.getInt(1));
                 g.setNaziv(result.getString(2));
-                g.setBroj_stanovnika(result.getInt(3));
+                g.setBrojStanovnika(result.getInt(3));
                 g.setDrzava(result.getInt(4));
                 gradovi.add(g);
             }
@@ -164,7 +166,7 @@ public class GeografijaDAO {
             PreparedStatement st = conn.prepareStatement("insert into grad (id, naziv, broj_stanovnika, drzava) values ( ?, ?, ?, ?)");
             st.setInt(1, grad.getId());
             st.setString(2, grad.getNaziv());
-            st.setInt(3, grad.getBroj_stanovnika());
+            st.setInt(3, grad.getBrojStanovnika());
             st.setInt(4, grad.getDrzava());
             st.executeUpdate();
 
@@ -191,7 +193,7 @@ public class GeografijaDAO {
         try {
             PreparedStatement ps = conn.prepareStatement("update main.grad set main.grad.naziv = ?, broj_stanovnika = ?, drzava = ? where id = ? ");
             ps.setString(1, grad.getNaziv());
-            ps.setInt(2, grad.getBroj_stanovnika());
+            ps.setInt(2, grad.getBrojStanovnika());
             ps.setInt(3, grad.getDrzava());
             ps.setInt(4, grad.getId());
             ps.executeUpdate();
