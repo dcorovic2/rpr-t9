@@ -9,9 +9,13 @@ public class Main {
         String s = "";
         GeografijaDAO gd = new GeografijaDAO();
         ArrayList<Grad> gradovi = gd.gradovi();
+        ArrayList<Drzava> drzave = gd.drzavaId();
 
         for(Grad g: gradovi){
-            System.out.println(g.getNaziv() + "(" + ") - " + g.getBroj_stanovnika());
+            for(Drzava d: drzave) {
+                if(g.getDrzava() == d.getId())
+                    System.out.println(g.getNaziv() + "(" + d.getNaziv() + ") - " + g.getBroj_stanovnika());
+            }
         }
 
         return s;
@@ -32,6 +36,6 @@ public class Main {
 
     public static void main(String[] args) {
         glavniGrad();
-      //  ispisiGradove();
+        ispisiGradove();
     }
 }

@@ -110,22 +110,21 @@ public class GeografijaDAO {
         }
 
     }
-/*
+
     public ArrayList<Grad> gradovi(){
         Set<Grad> gradovi = new TreeSet<>();
         ArrayList<Grad> pov = new ArrayList<>();
 
         try {
-            Statement stmt = conn.createStatement();
             Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * from grad");
+            ResultSet result = statement.executeQuery("SELECT id, naziv, broj_stanovnika, drzava from grad");
 
-            Grad g = null;
             while(result.next()){
-                g.setId(result.getInt("id"));
-                g.setNaziv(result.getString("naziv"));
-                g.setBroj_stanovnika(result.getInt("broj_stanovnika"));
-                g.setDrzava(result.getInt("drzava"));
+                Grad g = new Grad();
+                g.setId(result.getInt(1));
+                g.setNaziv(result.getString(2));
+                g.setBroj_stanovnika(result.getInt(3));
+                g.setDrzava(result.getInt(4));
                 gradovi.add(g);
             }
 
@@ -137,7 +136,29 @@ public class GeografijaDAO {
 
         return pov;
     }
-*/
+
+    public ArrayList<Drzava> drzavaId(){
+        ArrayList<Drzava> d = new ArrayList<>();
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from drzava");
+
+            while (rs.next()){
+                Drzava d1 = new Drzava();
+                d1.setId(rs.getInt(1));
+                d1.setNaziv(rs.getString(2));
+                d1.setGlavni_grad(rs.getInt(3));
+                d.add(d1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return d;
+    }
+
     public void dodajGrad(Grad grad) {
         try {
             PreparedStatement st = conn.prepareStatement("insert into grad (id, naziv, broj_stanovnika, drzava) values ( ?, ?, ?, ?)");
