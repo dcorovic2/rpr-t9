@@ -15,6 +15,13 @@ public class Grad {
         this.drzava = drzava;
     }
 
+    public int compareTo(Object o){
+        Grad g = (Grad) o;
+        if(this.broj_stanovnika > g.getBroj_stanovnika()) return 1;
+        if(this.broj_stanovnika < g.getBroj_stanovnika()) return -1;
+        return 0;
+    }
+
     public int getId() {
         return id;
     }

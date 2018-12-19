@@ -1,10 +1,14 @@
 package ba.unsa.etf.rpr;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Main {
     static String ispisiGradove(){
         String s = "";
+        GeografijaDAO gd = new GeografijaDAO();
+        ArrayList<Grad> gradovi = gd.gradovi();
 
         return s;
     }

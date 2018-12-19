@@ -1,7 +1,12 @@
 package ba.unsa.etf.rpr;
 
+import org.sqlite.SQLiteException;
+
+import java.nio.file.attribute.AclEntryType;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class GeografijaDAO {
     private static GeografijaDAO ourInstance = new GeografijaDAO();
@@ -16,37 +21,42 @@ public class GeografijaDAO {
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Dalija\\IdeaProjects\\rpr-t9tut\\src\\baza.db");
 
-            String upit1 = "INSERT INTO main.grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (1, 'Pariz', 2200000, 1)";
+            String upit1 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
+                    "VALUES (1, 'Pariz', 2200000, 6)";
 
             String upit2 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (2, 'London', 8136000, 2)";
+                    "VALUES (2, 'London', 8136000, 7)";
 
             String upit3 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (3, 'Bec', 1868000, 3)";
+                    "VALUES (3, 'Bec', 1868000, 8)";
 
             String upit4 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (4, 'Manchester', 510746, 2)";
+                    "VALUES (4, 'Manchester', 510746, 7)";
 
             String upit5 = "INSERT INTO grad(id, naziv, broj_stanovnika, drzava) " +
-                    "VALUES (5, 'Graz',  283869, 3)";
+                    "VALUES (5, 'Graz',  283869, 8)";
 
             String upit6 = "insert into drzava(id, naziv, glavni_grad) " +
-                    "values (1, 'Francuska', 1)";
+                    "values (6, 'Francuska', 1)";
             String upit7 = "insert into drzava(id, naziv, glavni_grad)" +
-                    "values(2, 'United Kingdom', 2)";
+                    "values(7, 'United Kingdom', 2)";
             String upit8 = "insert into drzava(id, naziv, glavni_grad)" +
-                    "values(3, 'Austrija', 3)";
+                    "values(8, 'Austrija', 3)";
 
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate(upit1);
-            stmt.executeUpdate(upit2);
-            stmt.executeUpdate(upit3);
-            stmt.executeUpdate(upit4);
-            stmt.executeUpdate(upit5);
-            stmt.executeUpdate(upit6);
-            stmt.executeUpdate(upit7);
-            stmt.executeUpdate(upit8);
+
+            try {
+                stmt.executeUpdate(upit1);
+                stmt.executeUpdate(upit2);
+                stmt.executeUpdate(upit3);
+                stmt.executeUpdate(upit4);
+                stmt.executeUpdate(upit5);
+                stmt.executeUpdate(upit6);
+                stmt.executeUpdate(upit7);
+                stmt.executeUpdate(upit8);
+            } catch (SQLiteException e){
+
+            }
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -59,7 +69,9 @@ public class GeografijaDAO {
         Grad g1 = null;
         try {
             Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * from main.drzava where naziv = " + drzava);
+            PreparedStatement statement = conn.prepareStatement("SELECT * from drzava where naziv =  ?");
+            statement.setString(1, drzava);
+            ResultSet result = statement.executeQuery();
             if(result == null) return null;
 
             int id1 = result.findColumn("glavni_grad");
@@ -95,9 +107,32 @@ public class GeografijaDAO {
 
     }
 
-   /* public ArrayList<Grad> gradovi(){
+    public ArrayList<Grad> gradovi(){
+        Set<Grad> gradovi = new TreeSet<>();
+        ArrayList<Grad> pov = new ArrayList<>();
 
-    }*/
+        try {
+            Statement stmt = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement("SELECT * from grad");
+            ResultSet result = statement.executeQuery();
+
+            Grad g = null;
+            while(result.next()){
+                g.setId(result.getInt("id"));
+                g.setNaziv(result.getString("naziv"));
+                g.setBroj_stanovnika(result.getInt("broj_stanovnika"));
+                g.setDrzava(result.getInt("drzava"));
+                gradovi.add(g);
+            }
+
+            pov.addAll(gradovi);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pov;
+    }
 
     public void dodajGrad(Grad grad) {
         try {
