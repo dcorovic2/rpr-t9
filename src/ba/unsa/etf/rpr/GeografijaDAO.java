@@ -113,8 +113,8 @@ public class GeografijaDAO {
 
         try {
             Statement stmt = conn.createStatement();
-            PreparedStatement statement = conn.prepareStatement("SELECT * from grad");
-            ResultSet result = statement.executeQuery();
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * from grad");
 
             Grad g = null;
             while(result.next()){

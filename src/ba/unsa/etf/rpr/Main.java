@@ -10,6 +10,10 @@ public class Main {
         GeografijaDAO gd = new GeografijaDAO();
         ArrayList<Grad> gradovi = gd.gradovi();
 
+        for(Grad g: gradovi){
+            System.out.println(g.getNaziv() + "(" + ") - " + g.getBroj_stanovnika());
+        }
+
         return s;
     }
 
@@ -28,5 +32,6 @@ public class Main {
 
     public static void main(String[] args) {
         glavniGrad();
+        ispisiGradove();
     }
 }
