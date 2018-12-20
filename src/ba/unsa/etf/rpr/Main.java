@@ -13,7 +13,7 @@ public class Main {
 
         for(Grad g: gradovi){
             for(Drzava d: drzave) {
-                if(g.getDrzava() == d.getId())
+                if(g.getDrzava().getId() == d.getId())
                    s += g.getNaziv() + " (" + d.getNaziv() + ") - " + g.getBrojStanovnika() + "\n";
             }
         }

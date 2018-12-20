@@ -4,11 +4,11 @@ public class Grad implements Comparable{
     private int id;
     private String naziv;
     private int BrojStanovnika;
-    private int drzava;
+    private Drzava drzava;
 
     public Grad(){};
 
-    public Grad(int id, String naziv, int broj_stanovnika, int drzava) {
+    public Grad(int id, String naziv, int broj_stanovnika, Drzava drzava) {
         this.id = id;
         this.naziv = naziv;
         this.BrojStanovnika = broj_stanovnika;
@@ -46,11 +46,11 @@ public class Grad implements Comparable{
         this.BrojStanovnika = brojStanovnika;
     }
 
-    public int getDrzava() {
+    public Drzava getDrzava() {
         return drzava;
     }
 
-    public void setDrzava(int drzava) {
+    public void setDrzava(Drzava drzava) {
         this.drzava = drzava;
     }
 }
