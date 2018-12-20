@@ -49,7 +49,6 @@ public class GeografijaDAO {
             try {
                 stmt.execute(upitPocetni1);
                 stmt.execute(upitPocetni2);
-
                 stmt.executeUpdate(upit1);
                 stmt.executeUpdate(upit2);
                 stmt.executeUpdate(upit3);
